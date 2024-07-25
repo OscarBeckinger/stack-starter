@@ -1,0 +1,9 @@
+#node modules...
+/node_modules
+node_modules
+
+#testing stuff
+/testing
+
+#for any testing that leaks into src directory
+/new-project
