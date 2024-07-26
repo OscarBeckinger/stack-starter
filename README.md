@@ -25,9 +25,41 @@ To create a new project, use the `create` command with the `-n` (or `--name`) an
 stack-starter create -n <project-name> -t <template-name>
 ```
 
+## Local Testing
 
+Since we aren't on the npm registry yet you might want to test `stack-starter` locally. To do so follow this process: 
 
+1. **Clone the repo onto your local**
+```bash
+git clone https://github.com/OscarBeckinger/stack-starter.git
+```
 
+2. **Navigate to the project directory**
+```bash
+cd stack-starter
+```
+
+3. **Install Dependencies**
+```bash
+npm install
+```
+or
+```bash
+yarn install
+```
+
+4. **Link the package locally**
+```bash
+npm link
+```
+or
+```bash
+yarn link
+```
+* *(Note: these command might need to be prefixed with `sudo`)* *
+
+5. **Test the tool**
+Now you are ready to go! Check out the usage section for more details.
 
 
 
