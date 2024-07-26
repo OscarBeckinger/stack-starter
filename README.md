@@ -56,7 +56,7 @@ or
 ```bash
 yarn link
 ```
-* *(Note: these command might need to be prefixed with `sudo`)* *
+_(Note: these command might need to be prefixed with `sudo`)_
 
 5. **Test the tool**
 Now you are ready to go! Check out the usage section for more details.
