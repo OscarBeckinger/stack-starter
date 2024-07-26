@@ -7,3 +7,5 @@ node_modules
 
 #for any testing that leaks into src directory
 /new-project
+
+.DS_Store

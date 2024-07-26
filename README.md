@@ -5,7 +5,7 @@
 
 ## Installation
 
-You can install `stack-starter` globally on your system with the following command (stack-starter is not on the npm registry yet, but will be soon!):
+You can install `stack-starter` globally on your system with the following command (`stack-starter` is not on the npm registry yet, but will be soon!):
 
 ```bash
 npm install -g stack-starter
