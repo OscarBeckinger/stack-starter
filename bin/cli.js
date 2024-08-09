@@ -14,7 +14,7 @@ const supportedTemplates = ['react-firebase', ''];
 //async because spawn/npm commands ran are async and we want to make sure the client dir is create before moving on
 async function setupClientVite(npmArgs, clientPath, projectName) {
   console.log(`Setting up client with args: ${npmArgs.join(' ')}`);
-  
+
   // create a promise for the npm process
   await new Promise((resolve, reject) => {
     const npmProcess = spawn('npm', npmArgs, { stdio: 'inherit' });
@@ -46,6 +46,8 @@ async function setupClientVite(npmArgs, clientPath, projectName) {
       }
     });
   });
+  // update App.jsx
+  await updateAppJsx(clientPath);
 }
 
 async function installFirebase(clientPath) {
@@ -132,6 +134,40 @@ async function updateGitIgnore(clientPath) {
   console.log('.gitignore updated successfully.');
 }
 
+// helper function to update App.jsx
+async function updateAppJsx(clientPath) {
+  const appJsxPath = path.join(clientPath, 'src', 'App.jsx');
+
+  // check if the App.jsx file exists
+  if (!fs.existsSync(appJsxPath)) {
+    console.error(`App.jsx not found at ${appJsxPath}`);
+    return;
+  }
+
+  // new content for the App.jsx file
+  const newAppJsxContent = `
+    import reactLogo from './assets/react.svg';
+    import './App.css';
+
+    function App() {
+      return (
+        <>
+          <div>
+            <img src={reactLogo} className="logo react" alt="React logo" />
+          </div>
+          <h1>Stack Starter -- React & Firebase</h1>
+        </>
+      );
+    }
+
+    export default App;
+    `;
+
+  // write the new content to App.jsx
+  fs.writeFileSync(appJsxPath, newAppJsxContent, 'utf8');
+  console.log('App.jsx updated successfully.');
+}
+
 //--------Helper Functions End-----------\\
 
 
@@ -175,12 +211,12 @@ program
       process.exit(1);
     }
 
-    // create server dir
-    const serverPath = path.join(projectPath, 'server');
-    if (!fs.existsSync(serverPath)) {
-      fs.mkdirSync(serverPath);
-      console.log(`Created server directory at: ${serverPath}`);
-    }
+    // create server dir (not need for all templates)
+    // const serverPath = path.join(projectPath, 'server');
+    // if (!fs.existsSync(serverPath)) {
+    //   fs.mkdirSync(serverPath);
+    //   console.log(`Created server directory at: ${serverPath}`);
+    // }
 
     // create client dir using Vite
     process.chdir(projectPath); //make sure in correct dir
@@ -208,6 +244,7 @@ program
 
         //create config dir and install firebase
         //install firebase in the client directory
+        console.log("Installing Firebase...")
         await installFirebase(clientPath);
 
         //create config dir
@@ -224,7 +261,7 @@ program
         process.exit(1);
     }
 
-    
+
 
     console.log(`Project setup complete with template: ${template}`);
     console.log('--------------------------------------------------');
